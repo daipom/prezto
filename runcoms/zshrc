@@ -11,10 +11,53 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+# ref: https://qiita.com/sprout2000/items/b8ed210a4babb94f2a67#
+if (( $+commands[arch] )); then
+  alias x64='exec arch -arch x86_64 "$SHELL"'
+  alias a64='exec arch -arch arm64e "$SHELL"'
+fi
+
+# if you dont define entire path here,
+# x64 or a64 commands will generate dupulicate paths
+# since it calls this again and again.
+if [[ $(uname -m) = "x86_64" ]]; then
+  typeset -U path PATH
+  path=(
+    /usr/local/opt/ruby/bin
+    /usr/local/bin
+    /usr/local/sbin
+    /usr/bin
+    /bin
+    /usr/sbin
+    /sbin
+    "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+    "/Applications/Sublime Merge.app/Contents/SharedSupport/bin"
+    $HOME/mycommands/bin
+  )
+else
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin":$PATH
+  typeset -U path PATH
+  path=(
+    /opt/homebrew/bin
+    /opt/homebrew/sbin
+    /opt/homebrew/opt/ruby/bin
+    /usr/local/bin
+    /usr/local/sbin
+    /usr/bin
+    /bin
+    /usr/sbin
+    /sbin
+    "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+    "/Applications/Sublime Merge.app/Contents/SharedSupport/bin"
+    $HOME/mycommands/bin
+  )
+fi
+
 zstyle :prompt:pure:path color cyan
 
-export PATH=$PATH:"/Applications/Sublime Text.app/Contents/SharedSupport/bin"
-export PATH=$PATH:"/Applications/Sublime Merge.app/Contents/SharedSupport/bin"
-export PATH=$PATH:"$HOME/mycommands/bin"
+# export PATH=$PATH:"/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+# export PATH=$PATH:"/Applications/Sublime Merge.app/Contents/SharedSupport/bin"
+# export PATH=$PATH:"$HOME/mycommands/bin"
 
 alias st="git status"
