@@ -11,3 +11,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+zstyle :prompt:pure:path color cyan
+
+export PATH=$PATH:"/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+export PATH=$PATH:"/Applications/Sublime Merge.app/Contents/SharedSupport/bin"
+export PATH=$PATH:"$HOME/mycommands/bin"
+
+alias st="git status"

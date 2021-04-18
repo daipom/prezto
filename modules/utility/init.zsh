@@ -49,7 +49,7 @@ alias sftp='noglob sftp'
 
 # Define general aliases.
 alias _='sudo'
-alias b='${(z)BROWSER}'
+# alias b='${(z)BROWSER}'
 
 alias diffu="diff --unified"
 alias e='${(z)VISUAL:-${(z)EDITOR}}'
@@ -205,10 +205,14 @@ function cdls {
 function pushdls {
   builtin pushd "$argv[-1]" && ls "${(@)argv[1,-2]}"
 }
+alias c='pushdls'
 
 # Pops an entry off the directory stack and lists its contents.
 function popdls {
   builtin popd "$argv[-1]" && ls "${(@)argv[1,-2]}"
+}
+function b {
+  builtin popd && ls "${(@)argv[1,-2]}"
 }
 
 # Prints columns 1 2 3 ... n.
